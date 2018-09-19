@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Negociações</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
-    
+
 </head>
+
 <body class="container">
-    
+
     <h1 class="text-center">Negociações</h1>
-    
+
     <form class="form">
-        
+
         <div class="form-group">
             <label for="data">Data</label>
-            <input type="date" id="data" class="form-control" required autofocus/>        
-        </div>    
-        
+            <input type="date" id="data" class="form-control" required autofocus />
+        </div>
+
         <div class="form-group">
             <label for="quantidade">Quantidade</label>
-            <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required/>
+            <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required />
         </div>
-        
+
         <div class="form-group">
             <label for="valor">Valor</label>
-            <input id="valor" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required />
+            <input id="valor" type="number" class="form-control" min="0.01" step="0.01" value="0.0" required />
         </div>
-        
+
         <button class="btn btn-primary" type="submit">Incluir</button>
     </form>
-    
+
     <div class="text-center">
         <button class="btn btn-primary text-center" type="button">
             Importar Negociações
@@ -38,10 +40,10 @@
         <button class="btn btn-primary text-center" type="button">
             Apagar
         </button>
-    </div> 
+    </div>
     <br>
     <br>
-    
+
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
@@ -51,13 +53,45 @@
                 <th>VOLUME</th>
             </tr>
         </thead>
-        
+
         <tbody>
         </tbody>
-        
+
         <tfoot>
         </tfoot>
     </table>
-    
+
+    <script src="js/app/models/Negociacao.js"></script>
+    <script>
+        var n1 = new Negociacao(new Date(), 20, 200.5);
+        n1.quantidade = 10; // isso não vai funcionar, pois é uma propriedade Getter
+
+        console.log("Before frozen -> " + Object.isFrozen(n1));
+        Object.freeze(n1); //congelei meu n1, porém de um modo procedural, quero que toda vez que instanciar um objeto desse, seja congelado para ser imutavel
+        console.log("After frozen -> " + Object.isFrozen(n1));
+
+        n1._quantidade = 2000000;
+
+        console.log("\nValores do objeto:");
+        console.log(n1.volume); // acessando o valor, como se tivesse acessando uma propriedade do objeto, porem por debaixo dos panos.. ele esta acesando um método 
+        console.log(n1.data);
+        console.log(n1.quantidade);
+        console.log(n1.valor);
+
+        // console.log(n1.getQuantidade());
+        // console.log(n1.getData());
+        // console.log(n1.getValor());
+        // console.log(n1.getVolume());
+        // n1.quantidade = 10;
+        // n1.valor = 200.50;  
+        // var volume = n1.quantidade * n1.valor;
+        // var volume = n1.obtemVolume();
+        // console.log(volume);
+        // console.log(n1);
+        // console.log(n1.quantidade);
+        // var n2 = new Negociacao();
+        // console.log(n2);   
+    </script>
 </body>
+
 </html>
