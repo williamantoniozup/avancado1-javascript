@@ -67,10 +67,19 @@
         n1.quantidade = 10; // isso não vai funcionar, pois é uma propriedade Getter
 
         console.log("Before frozen -> " + Object.isFrozen(n1));
-        Object.freeze(n1); //congelei meu n1, porém de um modo procedural, quero que toda vez que instanciar um objeto desse, seja congelado para ser imutavel
+        //Object.freeze(n1); //congelei meu n1, porém de um modo procedural, quero que toda vez que instanciar um objeto desse, seja congelado para ser imutavel
         console.log("After frozen -> " + Object.isFrozen(n1));
 
         n1._quantidade = 2000000;
+
+        console.log("data before: " + n1.data);
+
+        n1.data.setDate(20);
+        // var amanha = new Date();
+        // amanha.setDate(20);
+        // n1.data = amanha;
+
+        console.log("data after: " + n1.data);
 
         console.log("\nValores do objeto:");
         console.log(n1.volume); // acessando o valor, como se tivesse acessando uma propriedade do objeto, porem por debaixo dos panos.. ele esta acesando um método 

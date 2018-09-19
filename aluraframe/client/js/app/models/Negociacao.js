@@ -14,6 +14,7 @@ class Negociacao {
         this._data = data;
         this._quantidade = quantidade;
         this._valor = valor;
+        Object.freeze(this); // this uma variavel implícita
     }
 
     // acesso esse método como se fosse uma propriedade do objeto.
@@ -90,7 +91,20 @@ class Negociacao {
     console.log(n1.getValor());
 
     Para tornar objetos imutáveis, usaremos um proprieadade do JS, que vamos "congelar" 
-    o objeto.
+    o objeto., Assim aprendemos como tornar uma instancia imutavel, aplicando a propriedade
+    Object.freeze no construtor da Classe.
+
+    Porém, esta instância é imutavel mesmo?
+    Pela regra de negocio a a Negociacao deve ser imutavel, não pode ser alterada depois de 
+    criada.
+
+    Objetc.freeze é raso, só fica na superfice
+    n1.data.setDate(20); -> consigo alterar o dado da data. Ele não é profundo "deep", ele 
+    nao realiza um deep freeze, pois se um dos atributos da classe for um outro objeto
+    que possui propriedads, o freeze não se aplica para ele. Para isso temos que realizar uma
+    programação defensiva.
+
+
 
     
     Criação de um atalho uand queremos que tal método acesse aquela variavel apenas
