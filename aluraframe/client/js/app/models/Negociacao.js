@@ -117,7 +117,7 @@ class Negociacao {
 
     Por fim, deste modo conseguimos assegurar a imutabilidade das variaveis da classe
 
-
+    teste aqui
     
     
 
