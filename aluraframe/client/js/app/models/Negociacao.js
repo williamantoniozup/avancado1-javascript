@@ -11,7 +11,7 @@ class Negociacao {
 
     constructor(data, quantidade, valor) {
 
-        this._data = data;
+        this._data = new Date(data.getTime());
         this._quantidade = quantidade;
         this._valor = valor;
         Object.freeze(this); // this uma variavel implícita
@@ -114,6 +114,8 @@ class Negociacao {
     negociação. Trata-se de um novo objeto. Se tentarmos alterar a data no index.html, 
     apenas a cópia será alterada - o novo objeto que retornei "date", enquanto o interno 
     seguirá inalterado. Isso é o que chamamos de programacao defensiva.
+
+    Por fim, deste modo conseguimos assegurar a imutabilidade das variaveis da classe
 
 
     
