@@ -23,7 +23,7 @@ class Negociacao {
     }
 
     get data() {
-        return this._data;
+        return new Date(this._data.getTime());
     }
 
     get quantidade() {
@@ -98,17 +98,26 @@ class Negociacao {
     Pela regra de negocio a a Negociacao deve ser imutavel, não pode ser alterada depois de 
     criada.
 
+    Criação de um atalho quando queremos que tal método acesse aquela variavel apenas
+    para leitura. Eu posso criar um get nameMetodo(){};
+
+
     Objetc.freeze é raso, só fica na superfice
     n1.data.setDate(20); -> consigo alterar o dado da data. Ele não é profundo "deep", ele 
     nao realiza um deep freeze, pois se um dos atributos da classe for um outro objeto
     que possui propriedads, o freeze não se aplica para ele. Para isso temos que realizar uma
     programação defensiva.
 
+    o getTime de uma data retornará um número long com uma representação da data.
+    No construtor do Date(), este número será aceito para a construção de uma nova 
+    data. Então quando pedimos uma nova "data", ela será criada baseada na data da
+    negociação. Trata-se de um novo objeto. Se tentarmos alterar a data no index.html, 
+    apenas a cópia será alterada - o novo objeto que retornei "date", enquanto o interno 
+    seguirá inalterado. Isso é o que chamamos de programacao defensiva.
 
 
     
-    Criação de um atalho uand queremos que tal método acesse aquela variavel apenas
-    para leitura. Eu posso criar um get
+    
 
 */
 
