@@ -119,6 +119,11 @@ class Negociacao {
 
     A declaração VAR, vc consegue acessar a variável fora do escopo em que ela foi declarada.
     Com o uso do LET, a variável só pode ser acessada no escopo onde ela foi declarada.
+
+    Criar um CONTROLER
+
+    é por intermédio do controller no modelo MVC, que eu vou capturar as ações do usuário
+    e interagir com essa modelo, criando instâncias de Negociação.e
     
     
 

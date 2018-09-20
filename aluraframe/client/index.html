@@ -13,7 +13,7 @@
 
     <h1 class="text-center">Negociações</h1>
 
-    <form class="form">
+    <form class="form" onsubmit="negociacaoController.adiciona(event)">
 
         <div class="form-group">
             <label for="data">Data</label>
@@ -62,7 +62,19 @@
     </table>
 
     <script src="js/app/models/Negociacao.js"></script>
+    <script src="js/app/controllers/NegociacaoController.js"></script>
     <script>
+        let negociacaoController = new NegociacaoController();
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+    <!-- <script>
 
         let hoje = new Date();
 
@@ -71,7 +83,7 @@
         n1.quantidade = 10; // isso não vai funcionar, pois é uma propriedade Getter
 
         console.log("Before frozen -> " + Object.isFrozen(n1));
-        //Object.freeze(n1); //congelei meu n1, porém de um modo procedural, quero que toda vez que instanciar um objeto desse, seja congelado para ser imutavel
+        Object.freeze(n1); //congelei meu n1, porém de um modo procedural, quero que toda vez que instanciar um objeto desse, seja congelado para ser imutavel
         console.log("After frozen -> " + Object.isFrozen(n1));
 
 
@@ -79,10 +91,10 @@
 
         console.log("data before: " + n1.data);
         hoje.setDate(20);
-        // n1.data.setDate(20);
-        // var amanha = new Date();
-        // amanha.setDate(20);
-        // n1.data = amanha;
+        n1.data.setDate(20);
+        var amanha = new Date();
+        amanha.setDate(20);
+        n1.data = amanha;
 
         console.log("data after: " + n1.data);
 
@@ -92,20 +104,17 @@
         console.log(n1.quantidade);
         console.log(n1.valor);
 
-        // console.log(n1.getQuantidade());
-        // console.log(n1.getData());
-        // console.log(n1.getValor());
-        // console.log(n1.getVolume());
-        // n1.quantidade = 10;
-        // n1.valor = 200.50;  
-        // var volume = n1.quantidade * n1.valor;
-        // var volume = n1.obtemVolume();
-        // console.log(volume);
-        // console.log(n1);
-        // console.log(n1.quantidade);
-        // var n2 = new Negociacao();
-        // console.log(n2);   
-    </script>
-</body>
-
-</html>
+        console.log(n1.getQuantidade());
+        console.log(n1.getData());
+        console.log(n1.getValor());
+        console.log(n1.getVolume());
+        n1.quantidade = 10;
+        n1.valor = 200.50;  
+        var volume = n1.quantidade * n1.valor;
+        var volume = n1.obtemVolume();
+        console.log(volume);
+        console.log(n1);
+        console.log(n1.quantidade);
+        var n2 = new Negociacao();
+        console.log(n2);   
+    </script> -->
