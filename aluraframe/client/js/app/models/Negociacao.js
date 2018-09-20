@@ -8,7 +8,6 @@
 
 class Negociacao {
 
-
     constructor(data, quantidade, valor) {
 
         this._data = new Date(data.getTime());
@@ -34,15 +33,14 @@ class Negociacao {
         return this._valor;
     }
 
-
-
 }
 
 
 
 /*
     toda negociação que eu crio ja vai possuir uma data do nosso sistema por padrão
-    defino os atributos da classe no ECMA6, atraves do construtor
+    defino os atributos da classe no ECMA6, atraves do construtor. Pessoal chama esses
+    atributos do método construtor de propriedades.
     
     Toda classe com um construtor eu só posso chama-lá com um new, pois
     a função construtora só vai ser chamada com o operador new    
@@ -117,7 +115,10 @@ class Negociacao {
 
     Por fim, deste modo conseguimos assegurar a imutabilidade das variaveis da classe
 
-    teste aqui
+    Substituindo VAR por LET:
+
+    A declaração VAR, vc consegue acessar a variável fora do escopo em que ela foi declarada.
+    Com o uso do LET, a variável só pode ser acessada no escopo onde ela foi declarada.
     
     
 

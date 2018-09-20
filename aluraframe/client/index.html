@@ -64,9 +64,9 @@
     <script src="js/app/models/Negociacao.js"></script>
     <script>
 
-        var hoje = new Date();
+        let hoje = new Date();
 
-        var n1 = new Negociacao(hoje, 20, 200.5);
+        let n1 = new Negociacao(hoje, 20, 200.5);
 
         n1.quantidade = 10; // isso não vai funcionar, pois é uma propriedade Getter
 
@@ -74,7 +74,7 @@
         //Object.freeze(n1); //congelei meu n1, porém de um modo procedural, quero que toda vez que instanciar um objeto desse, seja congelado para ser imutavel
         console.log("After frozen -> " + Object.isFrozen(n1));
 
-      
+
         n1._quantidade = 2000000;
 
         console.log("data before: " + n1.data);
