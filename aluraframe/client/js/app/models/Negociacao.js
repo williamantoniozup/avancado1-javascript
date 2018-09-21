@@ -1,11 +1,3 @@
-/*
-- Classe de negocio
-- Construtor da classe e métodos
-- Encapsulamento
-
-
-*/
-
 class Negociacao {
 
     constructor(data, quantidade, valor) {
@@ -35,9 +27,12 @@ class Negociacao {
 
 }
 
-
-
 /*
+
+- Classe de negocio
+- Construtor da classe e métodos
+- Encapsulamento
+
     toda negociação que eu crio ja vai possuir uma data do nosso sistema por padrão
     defino os atributos da classe no ECMA6, atraves do construtor. Pessoal chama esses
     atributos do método construtor de propriedades.
