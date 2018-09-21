@@ -13,14 +13,13 @@ class NegociacaoController {
     adiciona(event) {
 
         event.preventDefault();
-
+   
         this._listaNegociacoes.adiciona(this._criaNegociacao());
+        //this._listaNegociacoes.negociacoes.push(this._criaNegociacao()); // vou vai conseguir inserir um novo objeto, porém na lista copia que passe e não na original
         this._limpaFormulario();
-
-        console.log(this._listaNegociacoes.negociacoes);
-
+        //this._listaNegociacoes.negociacoes.length = /0; //--> se eu fizer isso, detona com minha lista
+        //console.log(this._listaNegociacoes.negociacoes);
         // console.log(negociacao);
-
         // console.log(DateHelper.dataParaTexto(negociacao.data)); 
     }
 
@@ -28,12 +27,14 @@ class NegociacaoController {
     _criaNegociacao() {
 
         return new Negociacao(
+
             DateHelper.textoParaData(this._inputData.value),
             this._inputQuantidade.value,
             this._inputValor.value);
     }
 
     _limpaFormulario() {
+
         this._inputData.value = '';
         this._inputQuantidade.value = 1;
         this._inputValor.value = 0.0;
@@ -135,4 +136,11 @@ Versao 1 -
     eu simplesmente acesso os metodos dessa classe chamando a propria classe. Prém preciso definir os
     metodos dentro da classe DateHelper como estaticos. Ou seja.. são metodos que chamo direto da classe
     nao preciso ter uma instancia para trabalhar com eles.
+
+
+    Devemos utilizar programacao defensiva para blindar que alguem possa adicionar uma negociocao
+    na lista de negociação.
+
+    Por fim do jeito que esta o codigo, conseguimos inserir negociações dentro da minha lista de negociacoes
+    e ninguem pode altera-la,  com excessão do Adiciona(), que só pode inserir uma nova negociação.
 */

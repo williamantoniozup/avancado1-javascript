@@ -13,7 +13,7 @@ class Negociacao {
         this._data = new Date(data.getTime());
         this._quantidade = quantidade;
         this._valor = valor;
-        Object.freeze(this); // this uma variavel implícita
+        Object.freeze(this); // this uma variavel implícita congela superficialmente
     }
 
     // acesso esse método como se fosse uma propriedade do objeto.
