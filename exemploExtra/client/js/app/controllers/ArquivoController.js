@@ -1,15 +1,32 @@
 class ArquivoController {
 
     constructor() {
-        this._inputDados = document.querySelector('.dados-arquivo');
+
+        let $ = document.querySelector.bind(document)
+        this._inputDados = $('.dados-arquivo');
+        this._listaArquivos = new ListaArquivos();
     }
 
-    envia() {
+    envia(event) {
+
+        event.preventDefault();
+
         console.log(this._inputDados.value);
-        
+        console.log(typeof (this._inputDados.value));
+
+        // var teste = this._criaArquivo();
+        // console.log(teste);
+
+        this._listaArquivos.adiciona(this._criaArquivo());
+        console.log(this._listaArquivos.arquivos);
+
         //cria um Arquivo com as suas propriedades;
         this._limpaFormulario();
         // exibe mensagem no console com os dados do arquivo.
+    }
+
+    _criaArquivo() {
+        return new Arquivo(...ArquivoHelper.stringParaObjetoArquivo(this._inputDados.value));
     }
 
     _limpaFormulario() {
