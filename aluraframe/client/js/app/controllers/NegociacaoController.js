@@ -7,36 +7,38 @@ class NegociacaoController {
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
+        this._listaNegociacoes = new ListaNegociacoes();
     }
 
     adiciona(event) {
 
         event.preventDefault();
 
-        //console.log(typeof(this._inputData.value));  uma String
+        this._listaNegociacoes.adiciona(this._criaNegociacao());
+        this._limpaFormulario();
 
-        //'2012-12-12'
-        //let negociacao = new Negociacao(this._inputData.value); //assim nao funcionar
-        // console.log(this._inputData.value);
-
-        //let helper = new DateHelper();  // com isso delego a responsabilidade de formatacao de data pro helper
-        // let data =  helper.textoParaData(this._inputData.value);  --> faço direto
-        // assim isolamos mais nosso código
-        // console.log(data);
-
-        // console.log(typeof(this._inputData.value));
-
-        let negociacao = new Negociacao(
-            DateHelper.textoParaData(this._inputData.value),
-            this._inputQuantidade.value,
-            this._inputValor.value
-        );
+        console.log(this._listaNegociacoes.negociacoes);
 
         // console.log(negociacao);
 
-        // console.log(DateHelper.dataParaTexto(negociacao.data));
+        // console.log(DateHelper.dataParaTexto(negociacao.data)); 
+    }
 
-        
+
+    _criaNegociacao() {
+
+        return new Negociacao(
+            DateHelper.textoParaData(this._inputData.value),
+            this._inputQuantidade.value,
+            this._inputValor.value);
+    }
+
+    _limpaFormulario() {
+        this._inputData.value = '';
+        this._inputQuantidade.value = 1;
+        this._inputValor.value = 0.0;
+
+        this._inputData.focus();
     }
 }
 
@@ -50,6 +52,21 @@ class NegociacaoController {
         let inputData = $('#data');
         let inputQuantidade = $('#quantidade');
         let inputValor = $('#valor');
+
+
+
+        //console.log(typeof(this._inputData.value));  uma String
+
+        //'2012-12-12'
+        //let negociacao = new Negociacao(this._inputData.value); //assim nao funcionar
+        // console.log(this._inputData.value);
+
+        //let helper = new DateHelper();  // com isso delego a responsabilidade de formatacao de data pro helper
+        // let data =  helper.textoParaData(this._inputData.value);  --> faço direto
+        // assim isolamos mais nosso código
+        // console.log(data);
+
+        // console.log(typeof(this._inputData.value));
 
 
 //Higher-Order Functions - truque pra quem quer criar um miniFramework
