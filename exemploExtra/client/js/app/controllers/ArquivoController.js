@@ -20,6 +20,8 @@ class ArquivoController {
         this._listaArquivos.adiciona(this._criaArquivo());
         console.log(this._listaArquivos.arquivos);
 
+        this._imprimeLista();
+
         //cria um Arquivo com as suas propriedades;
         this._limpaFormulario();
         // exibe mensagem no console com os dados do arquivo.
@@ -28,6 +30,20 @@ class ArquivoController {
     _criaArquivo() {
         return new Arquivo(...ArquivoHelper.stringParaObjetoArquivo(this._inputDados.value));
     }
+
+    _imprimeLista(){
+        this._listaArquivos.arquivos.forEach((element,i) => {
+            console.log(`Arquivo ${i} - > nome: ${element.nome}/ tamanho: ${element.tamanho}/ tipo: ${element.tipo}`);
+        });
+    }
+
+    // _imprimeLista(){
+    //     for(let i=0; i<this._listaArquivos.arquivos.length; i++){
+    //         console.log(`nome: ${this._listaArquivos.arquivos[i].nome}/ tamanho: ${this._listaArquivos.arquivos[i].tamanho}/ tipo: ${this._listaArquivos.arquivos[i].tipo}`);
+    //     }
+    // }
+
+
 
     _limpaFormulario() {
         this._inputDados.value = '';
