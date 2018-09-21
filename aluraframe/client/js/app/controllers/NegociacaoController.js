@@ -1,6 +1,7 @@
 class NegociacaoController {
 
     constructor() {
+
         let $ = document.querySelector.bind(document);
 
         this._inputData = $('#data');
@@ -17,21 +18,25 @@ class NegociacaoController {
         //'2012-12-12'
         //let negociacao = new Negociacao(this._inputData.value); //assim nao funcionar
         // console.log(this._inputData.value);
-        let data = new Date(...
-            this._inputData.value
-                .split('-') // arrow functions
-                .map((item, indice) => item - indice % 2)   //.map(function(item, indice){ return item - indice%2})
-        ); 
+
+        //let helper = new DateHelper();  // com isso delego a responsabilidade de formatacao de data pro helper
+        // let data =  helper.textoParaData(this._inputData.value);  --> faço direto
+        // assim isolamos mais nosso código
         // console.log(data);
 
-        let negocioacao = new Negociacao(
-            data,
+        // console.log(typeof(this._inputData.value));
+
+        let negociacao = new Negociacao(
+            DateHelper.textoParaData(this._inputData.value),
             this._inputQuantidade.value,
             this._inputValor.value
         );
-        console.log(negocioacao);
 
-        //adicionar a negociação a uma lista
+        // console.log(negociacao);
+
+        // console.log(DateHelper.dataParaTexto(negociacao.data));
+
+        
     }
 }
 
@@ -104,4 +109,13 @@ Versao 1 -
                 })
         );
 
+    Dentro do Date(), ele guarda os meses dentro de um array que vai de 0 - 11, ou seja dezembro eh 11 e nao 12;
+
+
+    DateHelper, como não possuo propriedades na classe DateHelper, ou seja nao fiz um
+    construtor dentro da sua classe.. porem por default a classe possui um construtor... portanto
+    a classe não possuindo propriedades eu não necessito instancia um objeto dessa classe
+    eu simplesmente acesso os metodos dessa classe chamando a propria classe. Prém preciso definir os
+    metodos dentro da classe DateHelper como estaticos. Ou seja.. são metodos que chamo direto da classe
+    nao preciso ter uma instancia para trabalhar com eles.
 */
