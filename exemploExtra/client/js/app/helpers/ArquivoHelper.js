@@ -5,8 +5,7 @@ class ArquivoHelper {
     }
 
     static stringParaObjetoArquivo(arquivo) {
-        let arquivoArray = [];
-        return arquivoArray = arquivo.split('/');
+        return arquivo.toUpperCase().split('/');
     }
 
 
