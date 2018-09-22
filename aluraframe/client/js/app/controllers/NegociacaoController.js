@@ -8,9 +8,13 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
         this._listaNegociacoes = new ListaNegociacoes();
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
 
+        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
         this._negociacoesView.update(this._listaNegociacoes);
+
+        this._mensagem = new Mensagem();
+        this._mensagemView = new MensagemView($('#mensagemView'));
+        this._mensagemView.update(this._mensagem);
     }
 
     adiciona(event) {
@@ -19,12 +23,17 @@ class NegociacaoController {
    
         this._listaNegociacoes.adiciona(this._criaNegociacao());
         this._negociacoesView.update(this._listaNegociacoes);
+        
+        this._mensagem.texto = 'Negociação adicionado com sucesso';
+        this._mensagemView.update(this._mensagem);
+
+
         //this._listaNegociacoes.negociacoes.push(this._criaNegociacao()); // vou vai conseguir inserir um novo objeto, porém na lista copia que passe e não na original
-        this._limpaFormulario();
         //this._listaNegociacoes.negociacoes.length = /0; //--> se eu fizer isso, detona com minha lista
         //console.log(this._listaNegociacoes.negociacoes);
         // console.log(negociacao);
         // console.log(DateHelper.dataParaTexto(negociacao.data)); 
+        this._limpaFormulario();
     }
 
 
