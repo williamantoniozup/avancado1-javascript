@@ -1,10 +1,10 @@
-class NegociacoesView {
+class NegociacoesView extends View {
 
     constructor(elemento) {
-        this._elemento = elemento; //alvo onde meu template vai ser incluído.
+        super(elemento);
     }
 
-    _template(model) {
+    template(model) {
 
         return `
         <table class="table table-hover table-bordered">
@@ -38,15 +38,19 @@ class NegociacoesView {
         `
     }
 
-    update(model) {
-        this._elemento.innerHTML = this._template(model);
-    }
-
 }
 
 
 
 /*
+    constructor(elemento) {
+        this._elemento = elemento; //alvo onde meu template vai ser incluído.
+    }
+
+    update(model) {
+        this._elemento.innerHTML = this._template(model);
+    }
+
 preciso de alguma forma associar o elemento div que criei no index.html a minha
 NegociacoesView. Para isso... no constructor da Classe NegociacoesView eu vou receber
 um elemento, que eh um elemento do DOM que vai receber meu template.
