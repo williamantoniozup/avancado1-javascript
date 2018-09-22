@@ -8,7 +8,9 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
         this._listaNegociacoes = new ListaNegociacoes();
-        this._viewNegociacoes = new NegociacoesView();
+        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
+
+        this._negociacoesView.update(this._listaNegociacoes);
     }
 
     adiciona(event) {
@@ -16,6 +18,7 @@ class NegociacaoController {
         event.preventDefault();
    
         this._listaNegociacoes.adiciona(this._criaNegociacao());
+        this._negociacoesView.update(this._listaNegociacoes);
         //this._listaNegociacoes.negociacoes.push(this._criaNegociacao()); // vou vai conseguir inserir um novo objeto, porém na lista copia que passe e não na original
         this._limpaFormulario();
         //this._listaNegociacoes.negociacoes.length = /0; //--> se eu fizer isso, detona com minha lista
