@@ -7,10 +7,19 @@ class NegociacaoController {
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
-        this._listaNegociacoes = new ListaNegociacoes();
 
+        this._listaNegociacoes = new ListaNegociacoes(model =>
+            this._negociacoesView.update(model));
+        // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
+        // quero que este 'this.' de cima seja o 'NegociacaoController' e não uma 'ListaNegociacao'
+        /**
+            Arrow function não é somente uma maneira sucinta de escrever função, ela tem uma caracteristica muito
+            peculiar, o escopo do 'this' de uma arrow é Léxico, ele não é dinâmico igual de uma function, ele nao
+            muda de acordo com o contexto. O 'this' vai continuar sendo uma 'NegocioController', o 
+            'this._armadilha' não vai ser de 'ListaNegocio', ele vai ser de 'NegociacaoController' tbm.
+        */
         this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._negociacoesView.update(this._listaNegociacoes);
+        this._negociacoesView.update(this._listaNegociacoes); // primeira renderização da minha lista
 
         this._mensagem = new Mensagem();
         this._mensagemView = new MensagemView($('#mensagemView'));
@@ -20,10 +29,9 @@ class NegociacaoController {
     adiciona(event) {
 
         event.preventDefault();
-   
+
         this._listaNegociacoes.adiciona(this._criaNegociacao());
-        this._negociacoesView.update(this._listaNegociacoes);
-        
+
         this._mensagem.texto = 'Negociação adicionado com sucesso';
         this._mensagemView.update(this._mensagem);
 
@@ -34,6 +42,13 @@ class NegociacaoController {
         // console.log(negociacao);
         // console.log(DateHelper.dataParaTexto(negociacao.data)); 
         this._limpaFormulario();
+    }
+
+    apaga() {
+        this._listaNegociacoes.esvazia();
+
+        this._mensagem.texto = 'Negociações apagadas com sucesso!';
+        this._mensagemView.update(this._mensagem);
     }
 
 
@@ -156,4 +171,11 @@ Versao 1 -
 
     Por fim do jeito que esta o codigo, conseguimos inserir negociações dentro da minha lista de negociacoes
     e ninguem pode altera-la,  com excessão do Adiciona(), que só pode inserir uma nova negociação.
+
+
+       this._listaNegociacoes = new ListaNegociacoes(this, function (model) {
+            console.log(this);
+            this._negociacoesView.update(model); // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
+            // quero que este 'this.' de cima seja o 'NegociacaoController' e não uma 'ListaNegociacao'
+        });
 */
