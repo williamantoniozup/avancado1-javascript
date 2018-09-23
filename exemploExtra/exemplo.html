@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco": "Rua da esquina, 123",
+                "salario": "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco": "Rua da virada, 456",
+                "salario": "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco": "Rua da aresta, 789",
+                "salario": "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+        let htmlConcatenado = funcionariosEmHtml.join('');
+
+        // Agora temos: htmlConcatenado = ["<tr><td>...</td></tr><tr><td>...</td></tr><tr><td>...</td></tr>"];            
+
+        let tabela = document.querySelector("tbody");
+        tabela.innerHTML = htmlConcatenado;
+
+    </script>
+</body>
+
+</html>
+
+
+
+<!-- 
+
+
+    Seu único problema é que ele não está conseguindo mapear todos os elementos do 
+    array para uma tabela de verdade no HTML. Faça uso da função map, que vimos neste 
+    capítulo, para preencher a tabela do Silvio, lembrando que cada funcionário tem 3 atributos 
+    (nome, endereco e salario) e ele já tem acesso ao array funcionarios, que tem 
+    diversos objetos funcionario lá dentro.
+
+
+    
+ -->
