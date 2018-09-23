@@ -10,11 +10,14 @@ class NegociacaoController {
 
         // let self = this; --> Terceira maneira de resolver a questão do contexto do nosso this, utilizando o SELF;
         // this._listaNegociacoes = new ListaNegociacoes(function(model){
-            // self._negociacoesView.update(model);
+        // self._negociacoesView.update(model);
         // });
 
-        this._listaNegociacoes = new ListaNegociacoes(model =>
-            this._negociacoesView.update(model));
+        // Codigo para usar com armadilha na Classe ListaNegociacoes 
+        this._listaNegociacoes =
+            new ListaNegociacoes(model => this._negociacoesView.update(model));
+
+
         // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
         // quero que este 'this.' de cima seja o 'NegociacaoController' e não uma 'ListaNegociacao'
         /**
@@ -183,4 +186,9 @@ Versao 1 -
             this._negociacoesView.update(model); // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
             // quero que este 'this.' de cima seja o 'NegociacaoController' e não uma 'ListaNegociacao'
         });
+
+
+    Padrão de Projeto Proxy
+
+    é um padrão de projeto onde eu tenho um cara mentirosos
 */

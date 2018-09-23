@@ -1,16 +1,14 @@
 class ListaNegociacoes {
 
-    constructor(armadilha) {
+    constructor() {
+
         this._negociacoes = [];
-        this._armadilha = armadilha;
-        // this._contexto = contexto;
     }
 
 
     adiciona(negociacao) {
+
         this._negociacoes.push(negociacao);
-        this._armadilha(this);
-        // Reflect.apply(this._armadilha, this._contexto, [this]);
     }
 
     get negociacoes() {
@@ -18,9 +16,8 @@ class ListaNegociacoes {
     }
 
     esvazia() {
+        
         this._negociacoes = [];
-        this._armadilha(this);
-        // Reflect.apply(this._armadilha, this._contexto, [this]);
     }
 
 
@@ -46,5 +43,36 @@ não vai alterar a lista original
     Reflect.apply(this._armadilha, this._contexto, [this]);
 
     reflect é uma classe, chamando um metodo estatico dessa classe.
+
+
+Classe utilizando armadilha =>
+
+class ListaNegociacoes {
+
+    constructor(armadilha) {
+        this._negociacoes = [];
+        this._armadilha = armadilha; // esse 'this' é a instancia da nossa classe 'NegociacaoController'
+        // this._contexto = contexto;
+    }
+
+
+    adiciona(negociacao) {
+        this._negociacoes.push(negociacao);
+        this._armadilha(this);
+        // Reflect.apply(this._armadilha, this._contexto, [this]);
+    }
+
+    get negociacoes() {
+        return [].concat(this._negociacoes);  // programação defensiva, assim blindando que possa ocorrer duas inserções ao mesmo tempo por exemplo
+    }
+
+    esvazia() {
+        this._negociacoes = [];
+        this._armadilha(this);
+        // Reflect.apply(this._armadilha, this._contexto, [this]);
+    }
+
+
+}
 
 */
