@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        class SistemaImpressao {
+
+            constructor() {
+                this._codigo = 2;
+            }
+
+            imprime(nomes) {
+
+                nomes.forEach((nome) => {
+                    console.log(this);
+                    console.log(`${this._codigo}: ${nome}`);
+                });
+            }
+        }
+
+        let nomes = ['Flávio', 'Nico', 'Douglas'];
+        let si = new SistemaImpressao();
+        si.imprime(nomes);
+
+        // let carro = {
+        //     velocidade: 100,
+        //     acelera:() => {
+        //         console.log(this);
+        //         console.log(`Carro a ${this.velocidade} km por hora!`);
+        //     }
+        // };
+        // carro.acelera();
+
+    </script>
+</body>
+
+</html>
+
+
+
+<!-- 
+Primeiro bloco de codigo:
+
+Temos a seguinte classe SistemaImpressao, que possui o método imprime. O método recebe uma lista e 
+para cada item da lista imprime primeiro a versão do sistema, seguido do item. O problema é que o 
+this._codigo acessado em nosso forEach não é de uma instância da classe SistemaImpressao, aliás, 
+ele é undefined. Contudo, se usarmos arrow function, o this usado no forEach usará o this do contexto 
+no qual foi declarado.
+
+
+
+Segundo bloco de codigo:
+
+Como escrevemos nosso código dentro da tag script, não estamos dentro de um método ou de outra 
+função, estamos no escopo de window, ou seja, o escopo global. Lembre-se que o this de 
+uma arrow function é léxico, isto é, estático e pega emprestado seu valor do ambiente no qual 
+foi declarado. Como o this naquele ponto em que a arrow function foi declarada é window, 
+seu valor será window. É claro que o escopo global não possui a propriedade velocidade. 
+Veja que este é um exemplo no qual a arrow function atrapalha e que o uso de uma function 
+tradicional é o mais indicado. O this de uma function é dinâmico e muda de acordo com o contexto 
+de evocação da função. Como nossa função está sendo chamada a partir de um objeto, por padrão, 
+o this dessa função será o objeto.
+
+
+
+ -->
