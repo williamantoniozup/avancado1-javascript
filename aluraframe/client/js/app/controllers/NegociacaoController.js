@@ -8,6 +8,11 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
 
+        // let self = this; --> Terceira maneira de resolver a questão do contexto do nosso this, utilizando o SELF;
+        // this._listaNegociacoes = new ListaNegociacoes(function(model){
+            // self._negociacoesView.update(model);
+        // });
+
         this._listaNegociacoes = new ListaNegociacoes(model =>
             this._negociacoesView.update(model));
         // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
