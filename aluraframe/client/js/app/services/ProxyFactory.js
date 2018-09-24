@@ -18,8 +18,7 @@ class ProxyFactory {
                 return Reflect.get(target, prop, receiver);
             },
             set: function (target, prop, value, receiver) {
-                // console.log('Estou aqui');
-                // console.log(prop);
+                // S
                 let retorno = Reflect.set(target, prop, value, receiver);
                 if (props.includes(prop)) {
                     action(target);
