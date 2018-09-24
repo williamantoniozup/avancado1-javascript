@@ -8,11 +8,32 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
 
-        this._listaNegociacoes = ProxyFactory.create(
+        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
+
+        this._listaNegociacoes = new Bind(
             new ListaNegociacoes(),
-            ['adiciona', 'esvazia'],
-            (model) => this._negociacoesView.update(model)
+            this._negociacoesView,
+            ['adiciona', 'esvazia']
         );
+
+        this._mensagemView = new MensagemView($('#mensagemView'));
+
+        this._mensagem = new Bind(
+            new Mensagem(),
+            this._mensagemView,
+            ['texto']
+        );
+
+
+
+        // quero fazer um Bind da minha 'listaNegociacoes', com minha view quando os metodos adiciona() e esvazia() forem chamados.
+
+
+        // this._listaNegociacoes = ProxyFactory.create(
+        //     new ListaNegociacoes(),
+        //     ['adiciona', 'esvazia'],
+        //     (model) => this._negociacoesView.update(model)
+        // );
 
         // let self = this; --> Terceira maneira de resolver a questão do contexto do nosso this, utilizando o SELF;
         // this._listaNegociacoes = new ListaNegociacoes(function(model){
@@ -32,17 +53,17 @@ class NegociacaoController {
             muda de acordo com o contexto. O 'this' vai continuar sendo uma 'NegocioController', o 
             'this._armadilha' não vai ser de 'ListaNegocio', ele vai ser de 'NegociacaoController' tbm.
         */
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._negociacoesView.update(this._listaNegociacoes); // primeira renderização da minha lista
 
-        new Mensagem(),
-            this._mensagem = ProxyFactory.create(
-            ['texto'],
-            (model) => this._mensagemView.update(model)
-        );
+        // this._negociacoesView.update(this._listaNegociacoes); // primeira renderização da minha lista
 
-        this._mensagemView = new MensagemView($('#mensagemView'));
-        this._mensagemView.update(this._mensagem);
+        // this._mensagem = ProxyFactory.create(
+        //     new Mensagem(),
+        //     ['texto'],
+        //     (model) => this._mensagemView.update(model)
+        // );
+
+
+        // this._mensagemView.update(this._mensagem);
     }
 
     adiciona(event) {
@@ -65,7 +86,7 @@ class NegociacaoController {
     }
 
     apaga() {
- 
+
         this._listaNegociacoes.esvazia();
         this._mensagem.texto = 'Negociações apagadas com sucesso!';
         // this._mensagemView.update(this._mensagem);
