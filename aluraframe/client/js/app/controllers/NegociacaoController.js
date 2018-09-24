@@ -8,23 +8,11 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
 
-        let self = this;
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-            // get (target, prop, receiver){
-            get: function (target, prop, receiver) {
-                if (['adiciona', 'esvazia'].includes(prop) && typeof (target[prop]) == typeof (Function)) {
-                    //this -> é do proxy
-                    return function () {
-                        console.log(`Interceptando: ${prop}`);
-                        Reflect.apply(target[prop], target, arguments);
-                        self._negociacoesView.update(target);
-                    }
-                }
-                return Reflect.get(target, prop, receiver);
-            }
-
-        });
-
+        this._listaNegociacoes = ProxyFactory.create(
+            new ListaNegociacoes(),
+            ['adiciona', 'esvazia'],
+            (model) => this._negociacoesView.update(model)
+        );
 
         // let self = this; --> Terceira maneira de resolver a questão do contexto do nosso this, utilizando o SELF;
         // this._listaNegociacoes = new ListaNegociacoes(function(model){
@@ -33,7 +21,7 @@ class NegociacaoController {
 
         // Codigo para usar com armadilha na Classe ListaNegociacoes 
         // this._listaNegociacoes =
-            // new ListaNegociacoes(model => this._negociacoesView.update(model));
+        // new ListaNegociacoes(model => this._negociacoesView.update(model));
 
 
         // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
@@ -47,7 +35,12 @@ class NegociacaoController {
         this._negociacoesView = new NegociacoesView($('#negociacoesView'));
         this._negociacoesView.update(this._listaNegociacoes); // primeira renderização da minha lista
 
-        this._mensagem = new Mensagem();
+        new Mensagem(),
+            this._mensagem = ProxyFactory.create(
+            ['texto'],
+            (model) => this._mensagemView.update(model)
+        );
+
         this._mensagemView = new MensagemView($('#mensagemView'));
         this._mensagemView.update(this._mensagem);
     }
@@ -59,22 +52,23 @@ class NegociacaoController {
         this._listaNegociacoes.adiciona(this._criaNegociacao());
 
         this._mensagem.texto = 'Negociação adicionado com sucesso';
-        this._mensagemView.update(this._mensagem);
 
+        this._limpaFormulario();
 
+        // this._mensagemView.update(this._mensagem);
         //this._listaNegociacoes.negociacoes.push(this._criaNegociacao()); // vou vai conseguir inserir um novo objeto, porém na lista copia que passe e não na original
         //this._listaNegociacoes.negociacoes.length = /0; //--> se eu fizer isso, detona com minha lista
         //console.log(this._listaNegociacoes.negociacoes);
         // console.log(negociacao);
         // console.log(DateHelper.dataParaTexto(negociacao.data)); 
-        this._limpaFormulario();
+
     }
 
     apaga() {
+ 
         this._listaNegociacoes.esvazia();
-
         this._mensagem.texto = 'Negociações apagadas com sucesso!';
-        this._mensagemView.update(this._mensagem);
+        // this._mensagemView.update(this._mensagem);
     }
 
 
@@ -251,4 +245,25 @@ Versao 1 -
 
     A variável arguments é uma variável implícita que pode ser acessada em métodos ou funções. Ele se comporta como 
     um array onde cada posição equivale ao parâmetro que foi passado para o método ou função. Existe desde o ES5!
+
+
+    Substituindo esse trecho:
+
+    let self = this;
+
+    this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
+        // get (target, prop, receiver){
+        get: function (target, prop, receiver) {
+            if (['adiciona', 'esvazia'].includes(prop) && typeof (target[prop]) == typeof (Function)) {
+                //this -> é do proxy
+                return function () {
+                    console.log(`Interceptando: ${prop}`);
+                    Reflect.apply(target[prop], target, arguments);
+                    self._negociacoesView.update(target);
+                }
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+
+    });
 */
