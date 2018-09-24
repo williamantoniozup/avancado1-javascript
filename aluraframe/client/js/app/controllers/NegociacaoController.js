@@ -239,7 +239,16 @@ Versao 1 -
 
 
 
-    não há como eu interceptar um método com PROXY, somente propriedades que são lidas ou escritas
+    não há como eu interceptar um método com PROXY, somente propriedades que são lidas ou escritas,
+    (getters e setters são exceções a este problema).
 
     Quando chamamos uma função ou método, o JavaScript fará um getter e após a leitura, será enviada um apply.
+
+    Em relacao ao Freeze da classe Negociacao
+    E realmente não tem, mas ainda sim a armadilha definida no proxy será executada! Resumindo a moral da história: 
+    armadilhas serão disparadas mesmo se tentarmos modificar uma propriedade congelada de um objeto, 
+    ainda que ele não seja modificado.
+
+    A variável arguments é uma variável implícita que pode ser acessada em métodos ou funções. Ele se comporta como 
+    um array onde cada posição equivale ao parâmetro que foi passado para o método ou função. Existe desde o ES5!
 */
