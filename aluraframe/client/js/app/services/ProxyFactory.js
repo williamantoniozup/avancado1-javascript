@@ -9,18 +9,23 @@ class ProxyFactory {
                     //this -> é do proxy
                     return function () {
                         console.log(`Interceptando: ${prop}`);
-                        Reflect.apply(target[prop], target, arguments);
-                        return action(target);
+                        let retorno = Reflect.apply(target[prop], target, arguments);
+                        // return action(target);
+                        action(target);
+                        return retorno;
                     }
                 }
                 return Reflect.get(target, prop, receiver);
             },
             set: function (target, prop, value, receiver) {
+                // console.log('Estou aqui');
+                // console.log(prop);
+                let retorno = Reflect.set(target, prop, value, receiver);
                 if (props.includes(prop)) {
-                    target[prop] = value;
                     action(target);
+                    // target[prop] = value;
                 }
-                return Reflect.set(target, prop, value, receiver);
+                return retorno;
             }
         });
     }
