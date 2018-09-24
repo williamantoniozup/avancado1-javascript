@@ -13,7 +13,7 @@ class NegociacaoController {
         this._listaNegociacoes = new Bind(
             new ListaNegociacoes(),
             this._negociacoesView,
-            ['adiciona', 'esvazia']
+            'adiciona', 'esvazia'
         );
 
         this._mensagemView = new MensagemView($('#mensagemView'));
@@ -21,7 +21,7 @@ class NegociacaoController {
         this._mensagem = new Bind(
             new Mensagem(),
             this._mensagemView,
-            ['texto']
+            'texto'
         );
 
 
@@ -287,4 +287,23 @@ Versao 1 -
         }
 
     });
+
+
+    BIND INICIAL
+
+    this._negociacoesView = new NegociacoesView($('#negociacoesView'));
+
+    this._listaNegociacoes = new Bind(
+        new ListaNegociacoes(),
+        this._negociacoesView,
+        ['adiciona', 'esvazia']
+    );
+
+    this._mensagemView = new MensagemView($('#mensagemView'));
+
+    this._mensagem = new Bind(
+        new Mensagem(),
+        this._mensagemView,
+        ['texto']
+    );
 */
