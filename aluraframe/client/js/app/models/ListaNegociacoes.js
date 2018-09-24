@@ -8,6 +8,7 @@ class ListaNegociacoes {
 
     adiciona(negociacao) {
 
+        //this._negociacoes = [].concat(this._negociacoes, negociacao); //gambi para fazer o o proxy funcionar, pois assim estaremos fazendo uma atribuição a propriedade da classe
         this._negociacoes.push(negociacao);
     }
 

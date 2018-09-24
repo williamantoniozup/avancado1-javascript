@@ -59,17 +59,7 @@
         let negociacaoController = new NegociacaoController();
     </script>
 
-    <script>
-        let negociacao = new Proxy(new Negociacao(new Date(), 1, 100), {
-
-            set: function (target, prop, value, receiver) {
-                console.log(`valor anterior: ${target[prop]} - novo valor: ${value}`);
-                return Reflect.set(target, prop, value, receiver);
-            }
-        });
-        negociacao.quantidade = 20;
-        negociacao.valor = 200;
-    </script>
+    
 
 </body>
 
@@ -138,7 +128,44 @@
         console.log(negociacao.valor);
     </script>
 
+    <script>
+        let negociacao = new Proxy(new Negociacao(new Date(), 1, 100), {
 
+            set: function (target, prop, value, receiver) {
+                console.log(`valor anterior: ${target[prop]} - novo valor: ${value}`);
+                return Reflect.set(target, prop, value, receiver);
+            }
+        });
+        // assim executo um código que vai atualizar minha view quando alguma propriedade da minha classe for alterada.
+        negociacao.quantidade = 20;
+        negociacao.valor = 400;
+    </script>
+
+    // implementando o proxy
+    <script>
+        let lista = new Proxy(new ListaNegociacoes(), {
+            // get (target, prop, receiver){
+            get: function (target, prop, receiver) {
+                if (['adiciona', 'esvazia'].includes(prop) && typeof (target[prop]) == typeof (Function)) {
+                    //this -> é do proxy
+                    return function () {
+                        console.log(`Interceptando: ${prop}`);
+                        Reflect.apply(target[prop], target, arguments);
+                    }
+                }
+                return Reflect.get(target, prop, receiver);
+            }
+
+        });
+
+        lista.adiciona(new Negociacao(new Date(), 1, 100));
+        lista.esvazia();
+        /*
+        não funcionou pois não estamos atribuindo algu  valor de alguma propriedade, 
+            tanto no adiciona() quanto no push(); Se não estamos alterando o valor a 
+            alguma propriedade o set, nao vai ser chamado.
+        */
+    </script>
 
 
 -->

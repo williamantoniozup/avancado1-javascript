@@ -8,6 +8,24 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
 
+        let self = this;
+        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
+            // get (target, prop, receiver){
+            get: function (target, prop, receiver) {
+                if (['adiciona', 'esvazia'].includes(prop) && typeof (target[prop]) == typeof (Function)) {
+                    //this -> é do proxy
+                    return function () {
+                        console.log(`Interceptando: ${prop}`);
+                        Reflect.apply(target[prop], target, arguments);
+                        self._negociacoesView.update(target);
+                    }
+                }
+                return Reflect.get(target, prop, receiver);
+            }
+
+        });
+
+
         // let self = this; --> Terceira maneira de resolver a questão do contexto do nosso this, utilizando o SELF;
         // this._listaNegociacoes = new ListaNegociacoes(function(model){
         // self._negociacoesView.update(model);
@@ -189,6 +207,39 @@ Versao 1 -
 
 
     Padrão de Projeto Proxy
+    se quisermos monitorar os models Mensagem e Negociacoes, teremos que abrir a classe para alterar
+    e colocar a armadilha - mas, não faremos isto.
+    Não é bom inserirmos armadilhas nas classes, pois perdemos reutilização do modelo e teremos
+    que repetir em todos os modelos do sistema.
+    Nós acessamos o Proxy como se ele fosse o objeto real, este último ficará escondido
+    dentro do outro.
+    A vantagem está que colocaremos as armadilhas entre a chamada do Proxy e o objeto real.
 
-    é um padrão de projeto onde eu tenho um cara mentirosos
+    é um padrão de projeto onde eu tenho um cara mentirosos,
+    O padrão de projeto Proxy nada mais é do que um objeto "falso", "mentiroso", que envolve e encapsula o objeto 
+    real que queremos interagir. É como se fosse uma interface, entre o objeto real e o resto do código.
+    Conseguimos assim controlar o acesso aos seus atributos e métodos. Nele também podemos pendurar códigos que 
+    não cabem de estar alocados nos nossos modelos, mas que necessitam ser executados no caso de uma alteração 
+    ou atualização do mesmo.
+
+    Como segundo argumento de um proxy, passamos um handler, que é um objeto JavaScript que contém as 
+    armadilhas (traps) do nosso Proxy. 
+
+    O TARGET é o objeto real que é encapsulado pela proxy. É este objeto que não queremos "sujar" com armadilhas ou 
+    qualquer código que não diga respeito ao modelo.
+
+    O PROP é a propriedade em si, que está sendo lida naquele momento.
+
+    O RECEIVER é a referência ao próprio proxy. É na configuração do handler do Proxy que colocamos armadilhas. 
+
+    Proxies são objetos dos nossos modelos! Casca que envolvem objetos
+
+    Dentro desse contexto, só podemos "tocar" os objetos encapsulados passando pelo proxy. 
+    É justamente essa característica que torna o uso desse padrão de projeto tão poderoso.
+
+
+
+    não há como eu interceptar um método com PROXY, somente propriedades que são lidas ou escritas
+
+    Quando chamamos uma função ou método, o JavaScript fará um getter e após a leitura, será enviada um apply.
 */
