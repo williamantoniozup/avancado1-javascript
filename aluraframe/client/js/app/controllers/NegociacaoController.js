@@ -14,8 +14,8 @@ class NegociacaoController {
         // });
 
         // Codigo para usar com armadilha na Classe ListaNegociacoes 
-        this._listaNegociacoes =
-            new ListaNegociacoes(model => this._negociacoesView.update(model));
+        // this._listaNegociacoes =
+            // new ListaNegociacoes(model => this._negociacoesView.update(model));
 
 
         // eh chamado quando usar esvazia(), esse model vai ser a instancia de Lista de negociação que vai ser passada pra essa funcao quando ela for chamada
