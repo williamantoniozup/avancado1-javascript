@@ -60,11 +60,13 @@
                 if (xhr.readyState == 4) {
 
                     if (xhr.status == 200) {
-                        inputData = '';
-                        inputQuantidade = 0;
-                        inputValor = 0.0;
-                        inputData.focus;
+
+                        inputData.value = '';
+                        inputQuantidade.value = 0;
+                        inputValor.value = 0.0;
+                        inputData.focus();
                         alert('Negociação enviada com sucesso!');
+
                     } else {
                         alert(`Não foi possível enviar a negociação: ${xhr.responseText}`);
                     }
