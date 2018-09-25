@@ -14,5 +14,8 @@ module.exports  = function(app) {
         .get(api.listaRetrasada);  
         
     app.route('/negociacoes')
-        .post(api.cadastraNegociacao);          
+        .post(api.cadastraNegociacao); 
+
+    app.route('/negociacoes')         
+        .get(api.retornaTodasNegociacoes);
 };
