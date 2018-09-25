@@ -26,7 +26,6 @@ class NegociacaoController {
 
         // quero fazer um Bind da minha 'listaNegociacoes', com minha view quando os metodos adiciona() e esvazia() forem chamados.
 
-
         // this._listaNegociacoes = ProxyFactory.create(
         //     new ListaNegociacoes(),
         //     ['adiciona', 'esvazia'],
