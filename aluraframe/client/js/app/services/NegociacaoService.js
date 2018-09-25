@@ -4,7 +4,7 @@ class NegociacaoService {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', 'negociacoes/semana');
+        xhr.open('GET', '/negociacoes/semana');
 
 
         xhr.onreadystatechange = () => {
@@ -17,7 +17,7 @@ class NegociacaoService {
                     // console.log(JSON.parse(xhr.responseText));
                     cb(null, JSON.parse(xhr.responseText) //retornar formato texto 'stringzona' em objeto
                         .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
-                         // .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                    // .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
                 } else {
                     console.log(xhr.responseText);
                     cb('Não foi possível obter as negociações!', null);
@@ -36,5 +36,83 @@ class NegociacaoService {
             3: processando requisição
             4: requisição concluída e a resposta esta pronta
         */
+    }
+
+    obterNegociacoesDaSemanaAnterior(cb) {
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'negociacoes/retrasada');
+
+        xhr.onreadystatechange = () => {
+
+            if (xhr.readyState == 4) {
+
+                if (xhr.status == 200) {
+
+                    cb(null, JSON.parse(xhr.responseText)
+                        .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
+                } else {
+                    console.log(xhr.responseText);
+                    cb('Não foi possível obter as negociações!', null);
+
+                }
+            }
+
+        }
+
+        xhr.send();
+    }
+
+    obterNegociacoesDaSemanaRetrasada(cb) {
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'negociacoes/retrasada');
+
+        xhr.onreadystatechange = () => {
+
+            if (xhr.readyState == 4) {
+
+                if (xhr.status == 200) {
+
+                    cb(null, JSON.parse(xhr.responseText)
+                        .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
+                } else {
+                    console.log(xhr.responseText);
+                    cb('Não foi possível obter as negociações!', null);
+
+                }
+            }
+
+        }
+
+        xhr.send();
+    }
+
+    obterNegociacoes(cb) {
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'negociacoes');
+
+        xhr.onreadystatechange = () => {
+
+            if (xhr.readyState == 4) {
+
+                if (xhr.status == 200) {
+
+                    cb(null, JSON.parse(xhr.responseText)
+                        .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
+                } else {
+                    console.log(xhr.responseText);
+                    cb('Não foi possível obter as negociações!', null);
+
+                }
+            }
+
+        }
+
+        xhr.send();
     }
 }
