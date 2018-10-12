@@ -20,7 +20,7 @@ class NegociacaoService {
                     // .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
                 } else {
                     console.log(xhr.responseText);
-                    cb('Não foi possível obter as negociações!', null);
+                    cb('Não foi possível obter as negociações da semana!', null);
 
                 }
             }
@@ -54,7 +54,7 @@ class NegociacaoService {
                         .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
                 } else {
                     console.log(xhr.responseText);
-                    cb('Não foi possível obter as negociações!', null);
+                    cb('Não foi possível obter as negociações da semana anterior!', null);
 
                 }
             }
@@ -80,7 +80,7 @@ class NegociacaoService {
                         .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
                 } else {
                     console.log(xhr.responseText);
-                    cb('Não foi possível obter as negociações!', null);
+                    cb('Não foi possível obter as negociações da semana retrasada!', null);
 
                 }
             }
@@ -90,29 +90,29 @@ class NegociacaoService {
         xhr.send();
     }
 
-    obterNegociacoes(cb) {
+    // obterNegociacoes(cb) {
 
-        let xhr = new XMLHttpRequest();
+    //     let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', 'negociacoes');
+    //     xhr.open('GET', 'negociacoes');
 
-        xhr.onreadystatechange = () => {
+    //     xhr.onreadystatechange = () => {
 
-            if (xhr.readyState == 4) {
+    //         if (xhr.readyState == 4) {
 
-                if (xhr.status == 200) {
+    //             if (xhr.status == 200) {
 
-                    cb(null, JSON.parse(xhr.responseText)
-                        .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
-                } else {
-                    console.log(xhr.responseText);
-                    cb('Não foi possível obter as negociações!', null);
+    //                 cb(null, JSON.parse(xhr.responseText)
+    //                     .map(object => new Negociacao(new Date(object.data), object.quantidade, object.valor)));
+    //             } else {
+    //                 console.log(xhr.responseText);
+    //                 cb('Não foi possível obter as negociações!', null);
 
-                }
-            }
+    //             }
+    //         }
 
-        }
+    //     }
 
-        xhr.send();
-    }
+    //     xhr.send();
+    // }
 }
