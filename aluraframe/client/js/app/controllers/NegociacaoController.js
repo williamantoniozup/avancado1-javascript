@@ -84,10 +84,31 @@ class NegociacaoController {
 
 
     importaNegociacoes() {
-
+        //  usando Promise
         let service = new NegociacaoService();
+        // o 'obterNegociacoesDaSemana me devolve uma promessa de que vai obter esses dados, entao (then) eu recebo uma lista de negociacoes
+        service.obterNegociacoesDaSemana()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+                this._mensagem.texto = 'Negociações da semana obtida com sucesso!'
+            })
+            .catch(erro => this._mensagem.texto = erro);
 
-        service.obterNegociacoesDaSemana((err, negociacoes) => {
+        service.obterNegociacoesDaSemanaAnterior()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+                this._mensagem.texto = 'Negociações da semana obtida com sucesso!'
+            })
+            .catch(erro => this._mensagem.texto = erro);
+
+        service.obterNegociacoesDaSemanaRetrasada()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+                this._mensagem.texto = 'Negociações da semana obtida com sucesso!'
+            })
+            .catch(erro => this._mensagem.texto = erro);
+        /*
+        service.obterNegociacoesDaSemana((err, negociacoes) => { 
             if (err) {
                 this._mensagem.texto = err;
                 return;
@@ -121,6 +142,7 @@ class NegociacaoController {
             });
 
         });
+        */
 
 
 
@@ -350,4 +372,13 @@ Versao 1 -
         this._mensagemView,
         ['texto']
     );
+
+
+
+    Padrão de projeto - PROMISE DESIGNER PATTNER
+
+    reduzir a complexidade do código quando a gente lida com programação asyc.
+    A PROMISE é um resultado futuro de uma operação.
+
+    Precisamos transformar o 'NegociacaoService' em uma promise
 */
