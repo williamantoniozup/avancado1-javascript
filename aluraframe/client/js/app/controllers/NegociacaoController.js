@@ -86,6 +86,23 @@ class NegociacaoController {
     importaNegociacoes() {
         //  usando Promise
         let service = new NegociacaoService();
+
+        /*  Promise possui um recurso, que ela resolve na ordem, e depois de ter resolvido ela me retornar o resultado de todas em ordem e se
+        tiver um erro, trate esse erro em um lugar somente*/
+        Promise.all([
+            service.obterNegociacoesDaSemana(),
+            service.obterNegociacoesDaSemanaAnterior(),
+            service.obterNegociacoesDaSemanaRetrasada()]
+        ).then(negociacoes => {
+            negociacoes
+            .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])
+            .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações importadas com sucesso';
+        }).catch(error => this._mensagem.texto = error);
+
+
+        /*
+                        SEGUNDO MODO VISTO, PORÉM NÃO TRATA A QUESTAO DE SER ASSINCRONO  E TRATA O ERRO EM DIVERSOS LUGARES REPETINDO CODIGO
         // o 'obterNegociacoesDaSemana me devolve uma promessa de que vai obter esses dados, entao (then) eu recebo uma lista de negociacoes
         service.obterNegociacoesDaSemana()
             .then(negociacoes => {
@@ -107,7 +124,11 @@ class NegociacaoController {
                 this._mensagem.texto = 'Negociações da semana obtida com sucesso!'
             })
             .catch(erro => this._mensagem.texto = erro);
+        */
+
+
         /*
+                            PRIMEIRO JEITO  VISTO
         service.obterNegociacoesDaSemana((err, negociacoes) => { 
             if (err) {
                 this._mensagem.texto = err;
@@ -143,12 +164,6 @@ class NegociacaoController {
 
         });
         */
-
-
-
-
-
-
     }
 
 
@@ -178,10 +193,7 @@ class NegociacaoController {
     }
 }
 
-
-
 /*
-
         //let $ = document.querySelector;
         let $ = document.querySelector.bind(document);
         
@@ -354,7 +366,6 @@ Versao 1 -
 
     });
 
-
     BIND INICIAL
 
     this._negociacoesView = new NegociacoesView($('#negociacoesView'));
@@ -372,8 +383,6 @@ Versao 1 -
         this._mensagemView,
         ['texto']
     );
-
-
 
     Padrão de projeto - PROMISE DESIGNER PATTNER
 
